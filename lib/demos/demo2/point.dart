@@ -1,6 +1,10 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
+final double tolerance = 8.0; // 宽容,做优化使用
+
 
 class Point {
   final double x;
@@ -13,6 +17,9 @@ class Point {
   }
 
   Offset toOffset() => Offset(x, y);
+
+  Point operator -(Point other) => Point(x: x - other.x, y: y-other.y);
+  double get distance => sqrt(x * x + y * y);
 }
 
 // 画线的三种状态
@@ -36,7 +43,7 @@ class Line {
     paint
       ..style = PaintingStyle.stroke
       ..color = color
-      ..strokeWidth = strokeWidth;
+      ..strokeWidth = strokeWidth..strokeCap =StrokeCap.round;
     canvas.drawPoints(PointMode.polygon, points.map((e) => e.toOffset()).toList(), paint);
   }
 }
@@ -52,6 +59,11 @@ class PaintModel extends ChangeNotifier {
   void pushPoint(Point point){
     if(activeLine==null){
       return;
+    }
+    if(activeLine!.points.isNotEmpty){
+      if((point - activeLine!.points.last).distance < tolerance){
+        return;
+      }
     }
     activeLine!.points.add(point);
     notifyListeners();
@@ -80,5 +92,6 @@ class PaintModel extends ChangeNotifier {
   void removeEmpty(){
     _lines.removeWhere((element) => element!.points.length==0);
   }
+
 
 }

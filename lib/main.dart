@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gesture/demos/demo3.dart';
 import 'package:get/get.dart';
 
 import 'demos/demo2/view.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: WhitePaper(),
+      home: Demo3(),
     );
   }
 }
