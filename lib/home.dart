@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gesture/controller/app_controller.dart';
+import 'package:gesture/widgets/login_tip.dart';
+import 'package:get/get.dart';
 import 'utils.dart';
 
 // 首页
@@ -14,14 +17,20 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('典典你画我猜小游戏'),
+        title: Text('你画我猜'),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.person)).mr
+          Obx((){
+            final user = AppController.instance.getUser;
+            if(user!=null){
+              return Center(child: Text('欢迎回来,${user.nickName}').mr);
+            }
+            return IconButton(onPressed: (){}, icon: Icon(Icons.person)).mr;
+          })
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [actions()],
+          children: [LoginTip(),actions()],
         ),
       ),
     );
