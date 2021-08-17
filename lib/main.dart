@@ -1,6 +1,6 @@
-import 'package:dd_taoke_sdk/dd_taoke_sdk.dart';
 import 'package:dd_taoke_sdk/network/util.dart';
 import 'package:flutter/material.dart';
+import 'package:gesture/service/app_service.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -10,6 +10,7 @@ import 'home.dart';
 void main() async{
   await Hive.initFlutter();
   Get.put(AppController());
+  Get.put(AppService());
   DdTaokeUtil.instance.init('http://192.168.199.55', '80');
   runApp(MyApp());
 }

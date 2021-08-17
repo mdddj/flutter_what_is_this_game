@@ -11,9 +11,10 @@ dependencies:
   get: any
   cupertino_icons: ^1.0.3
   web_socket_channel: ^2.1.0
-  dd_taoke_sdk: ^1.4.6
+  dd_taoke_sdk: ^1.4.8
   hive: ^2.0.4
   hive_flutter: any
+  extended_image: ^4.1.0
 
 
 dev_dependencies:

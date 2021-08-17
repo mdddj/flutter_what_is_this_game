@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // 进行登录
+  // 尝试登录
   Future<void> submit() async {
     final loginName = loginNameController.text;
     final password = passwordController.text;

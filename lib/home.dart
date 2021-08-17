@@ -3,6 +3,7 @@ import 'package:gesture/controller/app_controller.dart';
 import 'package:gesture/widgets/login_tip.dart';
 import 'package:get/get.dart';
 import 'utils.dart';
+import 'widgets/rooms.dart';
 
 // 首页
 class Home extends StatefulWidget {
@@ -19,18 +20,18 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text('你画我猜'),
         actions: [
-          Obx((){
+          Obx(() {
             final user = AppController.instance.getUser;
-            if(user!=null){
+            if (user != null) {
               return Center(child: Text('欢迎回来,${user.nickName}').mr);
             }
-            return IconButton(onPressed: (){}, icon: Icon(Icons.person)).mr;
+            return IconButton(onPressed: () {}, icon: Icon(Icons.person)).mr;
           })
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [LoginTip(),actions()],
+          children: [LoginTip(), actions(), Rooms().wrap],
         ),
       ),
     );
@@ -39,7 +40,18 @@ class _HomeState extends State<Home> {
   // 操作区域
   Widget actions() {
     return Row(
-      children: [ElevatedButton(onPressed: () {}, child: Text('创建房间'))],
+      children: [
+        ElevatedButton(
+            onPressed: () {
+              createRoom('roomName---');
+            },
+            child: Text('创建房间')).mr,
+        TextButton(onPressed: AppController.instance.getAllRooms, child: Text('刷新房间列表'))
+
+      ],
     ).wrap;
   }
+
+  // 创建房间
+  void createRoom(String roomName) {}
 }

@@ -1,6 +1,8 @@
+import 'package:dd_taoke_sdk/model/room_model.dart';
 import 'package:dd_taoke_sdk/model/user.dart';
 import 'package:dd_taoke_sdk/public_api.dart';
 import 'package:gesture/box_util.dart';
+import 'package:gesture/service/app_service.dart';
 import 'package:get/get.dart';
 
 import '../utils.dart';
@@ -14,6 +16,7 @@ class AppController extends GetxController {
   //已登录用户
   Rxn<User> _user = Rxn<User>();
   RxnString _token = RxnString();
+  RxList<GameRoomModel> rooms = RxList<GameRoomModel>([]); // 已创建的游戏房间
 
   User? get getUser=> _user.value;
   // 设置已登录用户
@@ -38,6 +41,7 @@ class AppController extends GetxController {
       if (tryLoginUser != null) {
         user = tryLoginUser;
         showToast('欢迎回来');
+        AppService.instance.startConnect();
       }
     }
   }
@@ -53,5 +57,14 @@ class AppController extends GetxController {
   void onReady() async {
     await getJwtCatch();
     await jwtTokenGetUser();
+    getAllRooms();
+  }
+
+  void getAllRooms(){
+    rooms.clear();
+    PublicApi.req.getAllRoom().then((value) {
+      rooms.addAll(value);
+      update();
+    });
   }
 }
