@@ -8,6 +8,7 @@ import 'package:gesture/demos/demo2/setting/dialog.dart';
 import 'package:gesture/utils.dart';
 import 'package:get/get.dart';
 
+// 对战房间
 class WhitePaper extends StatefulWidget {
   final GameRoomModel room;
 
@@ -21,6 +22,21 @@ class _WhitePaperState extends State<WhitePaper> {
   final PaintModel paintModel = PaintModel();
   Color lineColor = Colors.black;
   double strokeWidth = 1;
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      final user = AppController.instance.getUser;
+      if(user!=null && user.id != widget.room.roomCreateUser!.id){
+        // 表示我是参战选手
+        PublicApi.req.inRoom(user.id.toString(), widget.room.roomName);
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {

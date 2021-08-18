@@ -1,10 +1,9 @@
 import 'package:dd_taoke_sdk/model/room_model.dart';
+import 'package:dd_taoke_sdk/model/user.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gesture/controller/app_controller.dart';
-import 'package:gesture/demos/demo1.dart';
-import 'package:gesture/demos/demo2/view.dart';
 import 'package:get/get.dart';
 import '../utils.dart';
 
@@ -23,7 +22,13 @@ class Rooms extends StatelessWidget {
           shrinkWrap: true,
         );
       }
-      return Container();
+      return Card(
+        child: Container(
+          height: 200,
+          alignment: Alignment.center,
+          child: Text('暂无房间.速去创建一个吧'),
+        ),
+      );
     });
   }
 
@@ -40,29 +45,40 @@ class Rooms extends StatelessWidget {
           children: [
             Text('房间名:${room.roomName}'),
             Divider(),
+            if (room.roomCreateUser != null) renderUserInfo('房主', room.roomCreateUser!),
+            if (room.pkUser != null) renderUserInfo('对手', room.pkUser!),
             Row(
               children: [
-                Text('房主:').mr,
-                if (room.roomCreateUser != null)
-                  ExtendedImage.network(
-                    room.roomCreateUser!.picture,
-                    borderRadius: BorderRadius.circular(100),
-                    shape: BoxShape.circle,
-                    width: 50,
-                    height: 50,
-                  ).mr,
-                if (room.roomCreateUser != null) Text('${room.roomCreateUser!.nickName}')
+                ElevatedButton(
+                        onPressed: () {
+                          toPkView(room);
+                        },
+                        child: Text('开始对战'))
+                    .mr,
+                OutlinedButton(onPressed: (){
+                  showToast('暂不支持');
+                }, child: Text('观战')).mr
               ],
-            ),
-            ElevatedButton(
-                    onPressed: () {
-                      toPkView(room);
-                    },
-                    child: Text('开始对战'))
-                .mt
+            ).mt,
           ],
         ),
       ),
+    ).mt;
+  }
+
+  Widget renderUserInfo(String title, User user) {
+    return Row(
+      children: [
+        Text('$title:').mr,
+        ExtendedImage.network(
+          user.picture,
+          borderRadius: BorderRadius.circular(100),
+          shape: BoxShape.circle,
+          width: 50,
+          height: 50,
+        ).mr,
+        Text('${user.nickName}')
+      ],
     ).mt;
   }
 }

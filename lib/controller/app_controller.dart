@@ -96,13 +96,27 @@ class AppController extends GetxController {
 
   // 插入一个新房间
   void addNewRoom(GameRoomModel model){
-    rooms.insert(0, model);
-    update();
+    if(rooms.indexWhere((element) => element.roomName==model.roomName)<0){
+      rooms.insert(0, model);
+      update();
+    }
   }
 
   // 删除一个房间
   Future<void> removeRoom(String roomName) async {
     await PublicApi.req.removeRoom(roomName);
     rooms.removeWhere((element) => element.roomName == roomName);
+    update();
   }
+
+  // 修改一个房间
+  void updateRoom(GameRoomModel model){
+    final index = rooms.indexWhere((element) => element.roomName == model.roomName);
+    if(index>=0){
+      // 如果找到房间,进行更新
+      rooms[index] = model;
+      update();
+    }
+  }
+
 }
