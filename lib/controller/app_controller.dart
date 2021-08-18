@@ -15,8 +15,15 @@ class AppController extends GetxController {
 
   //已登录用户
   Rxn<User> _user = Rxn<User>();
+
+  // 用户jwt token
   RxnString _token = RxnString();
-  RxList<GameRoomModel> rooms = RxList<GameRoomModel>([]); // 已创建的游戏房间
+
+  // 已创建的游戏房间
+  RxList<GameRoomModel> rooms = RxList<GameRoomModel>([]);
+
+  // 在线人数
+  RxInt inlineUserCount = RxInt(0);
 
   User? get getUser=> _user.value;
   // 设置已登录用户
@@ -58,13 +65,44 @@ class AppController extends GetxController {
     await getJwtCatch();
     await jwtTokenGetUser();
     getAllRooms();
+    getInlineCount();
   }
 
+  // api获取已创建房间列表
   void getAllRooms(){
     rooms.clear();
     PublicApi.req.getAllRoom().then((value) {
       rooms.addAll(value);
       update();
     });
+  }
+
+  // api获取在线人数
+  void getInlineCount(){
+    PublicApi.req.getInlineUserCount().then((value) {
+      if(value.isNotEmpty){
+        showToast('刷新成功,当前在线用户:$value');
+        inlineUserCount.value = int.parse(value);
+        update();
+      }
+    });
+  }
+
+  // 手动设置在线人数
+  void setInlineCount(int count){
+    inlineUserCount.value = count;
+    update();
+  }
+
+  // 插入一个新房间
+  void addNewRoom(GameRoomModel model){
+    rooms.insert(0, model);
+    update();
+  }
+
+  // 删除一个房间
+  Future<void> removeRoom(String roomName) async {
+    await PublicApi.req.removeRoom(roomName);
+    rooms.removeWhere((element) => element.roomName == roomName);
   }
 }

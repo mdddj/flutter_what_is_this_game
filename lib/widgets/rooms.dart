@@ -3,6 +3,8 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gesture/controller/app_controller.dart';
+import 'package:gesture/demos/demo1.dart';
+import 'package:gesture/demos/demo2/view.dart';
 import 'package:get/get.dart';
 import '../utils.dart';
 
@@ -49,13 +51,15 @@ class Rooms extends StatelessWidget {
                     width: 50,
                     height: 50,
                   ).mr,
-                if (room.roomCreateUser != null)
-                  Text('${room.roomCreateUser!.nickName}')
+                if (room.roomCreateUser != null) Text('${room.roomCreateUser!.nickName}')
               ],
             ),
-
-            ElevatedButton(onPressed: (){}, child: Text('开始对战')).mt
-
+            ElevatedButton(
+                    onPressed: () {
+                      toPkView(room);
+                    },
+                    child: Text('开始对战'))
+                .mt
           ],
         ),
       ),

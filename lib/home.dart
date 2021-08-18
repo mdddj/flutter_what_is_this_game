@@ -1,8 +1,11 @@
+import 'package:dd_taoke_sdk/public_api.dart';
 import 'package:flutter/material.dart';
 import 'package:gesture/controller/app_controller.dart';
+import 'package:gesture/widgets/create_room_dialog.dart';
 import 'package:gesture/widgets/login_tip.dart';
 import 'package:get/get.dart';
 import 'utils.dart';
+import 'widgets/inline_user_count_show.dart';
 import 'widgets/rooms.dart';
 
 // 首页
@@ -41,17 +44,38 @@ class _HomeState extends State<Home> {
   Widget actions() {
     return Row(
       children: [
-        ElevatedButton(
-            onPressed: () {
-              createRoom('roomName---');
-            },
-            child: Text('创建房间')).mr,
-        TextButton(onPressed: AppController.instance.getAllRooms, child: Text('刷新房间列表'))
-
+        // 创建房间的按钮,没有登录不能创建
+        Obx(() {
+          return ElevatedButton(
+              onPressed: AppController.instance.getUser == null
+                  ? null
+                  : () async {
+                      final roomName = await CreateRoomDialog.show();
+                      if (roomName.isNotEmpty) {
+                        createRoom(roomName);
+                      }
+                    },
+              child: Text('创建房间'));
+        }).mr,
+        TextButton(onPressed: AppController.instance.getAllRooms, child: Text('刷新房间列表')).mr,
+        InlineCountShow().mr
       ],
     ).wrap;
   }
 
-  // 创建房间
-  void createRoom(String roomName) {}
+  // 创建房间逻辑
+  Future<void> createRoom(String roomName) async {
+    print('用户创建房间:$roomName');
+    final newRoom =
+        await PublicApi.req.createRoom(AppController.instance.getUser!.id, roomName, error: (c, m) {
+      showToast(m ?? '创建失败');
+    });
+    if (newRoom != null) {
+      // 插入到房间列表
+      AppController.instance.addNewRoom(newRoom);
+
+      // 进入房间对战
+      toPkView(newRoom);
+    }
+  }
 }

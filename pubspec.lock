@@ -63,7 +63,7 @@ packages:
       name: dd_taoke_sdk
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.4.8"
+    version: "1.5.0"
   dio:
     dependency: transitive
     description:
