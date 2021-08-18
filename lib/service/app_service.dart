@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dd_taoke_sdk/model/room_model.dart';
+import 'package:fbroadcast_nullsafety/fbroadcast_nullsafety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gesture/controller/app_controller.dart';
 import 'package:gesture/utils.dart';
@@ -16,6 +17,14 @@ class AppService extends GetxService {
   WebSocketChannel? channel;
 
   static AppService get instance => Get.find<AppService>();
+
+  // 给某个用户发送socket消息
+  void sendMessage(String userId, String type, String json) {
+    if (channel != null) {
+      final dataMap = <String, dynamic>{'user': userId, 'type': type, 'data': json};
+      channel!.sink.add(jsonEncode(dataMap));
+    }
+  }
 
   // 开始连接
   void startConnect() {
@@ -56,8 +65,13 @@ class AppService extends GetxService {
           if (pkUser != null) {
             showToast('${pkUser.nickName}进入了房间.');
             print('${pkUser.nickName}进入了房间');
+            AppController.instance.setCurrentRoom(roomModel);
           }
-
+          break;
+        case 'brush':
+          // 通知画板进行刷新
+          print('收到刷新画板的通知:${jsonEncode(map)}');
+          FBroadcast.instance(Get.context)!.broadcast('refresh', value: map);
           break;
         default:
           print('收到无法解析的消息');

@@ -15,6 +15,7 @@ dependencies:
   hive: ^2.0.4
   hive_flutter: any
   extended_image: ^4.1.0
+  fbroadcast_nullsafety: ^2.0.2
 
 
 dev_dependencies:

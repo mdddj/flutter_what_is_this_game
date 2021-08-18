@@ -22,10 +22,22 @@ class AppController extends GetxController {
   // 已创建的游戏房间
   RxList<GameRoomModel> rooms = RxList<GameRoomModel>([]);
 
+  // 维护一个当前用户所在的房间
+  Rxn<GameRoomModel> currentRoom = Rxn<GameRoomModel>(null);
+
   // 在线人数
   RxInt inlineUserCount = RxInt(0);
 
   User? get getUser=> _user.value;
+
+
+
+  void setCurrentRoom(GameRoomModel? room){
+      currentRoom.value = room;
+      update();
+  }
+
+
   // 设置已登录用户
   set user(User user) {
     _user.value = user;

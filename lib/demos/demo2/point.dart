@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 
@@ -20,6 +21,19 @@ class Point {
 
   Point operator -(Point other) => Point(x: x - other.x, y: y-other.y);
   double get distance => sqrt(x * x + y * y);
+
+  Map<String,dynamic> toMap(){
+    return <String,dynamic>{
+      'x':x.toString(),
+      'y':y.toString()
+    };
+  }
+
+  String toJSON()=> jsonEncode(toMap());
+
+  factory Point.fromMap(Map<String,dynamic> res){
+    return Point(x: double.parse(res['x']), y: double.parse(res['y']));
+  }
 }
 
 // 画线的三种状态
@@ -57,6 +71,7 @@ class PaintModel extends ChangeNotifier {
 
   //添加一个点
   void pushPoint(Point point){
+    print('点被添加:${point.toJSON()}');
     if(activeLine==null){
       return;
     }

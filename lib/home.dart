@@ -76,6 +76,9 @@ class _HomeState extends State<Home> {
 
       // 进入房间对战
       toPkView(newRoom);
+
+      // 设置当前维护的房间信息
+      AppController.instance.setCurrentRoom(newRoom);
     }
   }
 }

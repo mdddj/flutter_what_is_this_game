@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:dd_taoke_sdk/model/room_model.dart';
+import 'package:dd_taoke_sdk/public_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gesture/demos/demo2/view.dart';
@@ -15,6 +18,20 @@ extension WidgetExtensions on Widget {
   Widget get mr => Padding(padding: EdgeInsets.only(right: 12),child: this);
   Widget get mt => Padding(padding: EdgeInsets.only(top: 12),child: this);
 }
+
+// api 扩展
+extension PublicApiExtensions on PublicApi {
+
+  /// 获取房间数据
+  Future<GameRoomModel?> getRoomInfo(String roomName) async {
+   final result = await  this.util.get('$userApiUrl/room-info',data: {
+      'roomName':roomName
+    },isTaokeApi: false);
+    return result.isNotEmpty ? GameRoomModel.fromJson(jsonDecode(result)) : null;
+  }
+
+}
+
 
 
 void showToast(String msg){
