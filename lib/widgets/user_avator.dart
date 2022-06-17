@@ -1,4 +1,4 @@
-import 'package:dd_taoke_sdk/model/user.dart';
+import 'package:dataoke_sdk/model/user.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,6 @@
-import 'package:dd_taoke_sdk/public_api.dart';
+import 'package:dataoke_sdk/network/util.dart';
+import 'package:dataoke_sdk/public_api.dart';
+import 'package:dd_check_plugin/dd_check_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:gesture/controller/app_controller.dart';
 import 'package:gesture/widgets/create_room_dialog.dart';
@@ -17,24 +19,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      DdCheckPlugin.instance.init(DdTaokeUtil.instance.createInstance()!);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('你画我猜'),
+        title: const Text('你画我猜'),
         actions: [
           Obx(() {
             final user = AppController.instance.getUser;
             if (user != null) {
               return Center(child: Text('欢迎回来,${user.nickName}').mr);
             }
-            return IconButton(onPressed: () {}, icon: Icon(Icons.person)).mr;
+            return IconButton(onPressed: () {}, icon: const Icon(Icons.person)).mr;
           })
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [LoginTip(), actions(), Rooms().wrap],
+          children: [const LoginTip(), actions(), const Rooms().wrap],
         ),
       ),
     );
@@ -55,10 +65,10 @@ class _HomeState extends State<Home> {
                         createRoom(roomName);
                       }
                     },
-              child: Text('创建房间'));
+              child: const Text('创建房间'));
         }).mr,
-        TextButton(onPressed: AppController.instance.getAllRooms, child: Text('刷新房间列表')).mr,
-        InlineCountShow().mr
+        TextButton(onPressed: AppController.instance.getAllRooms, child: const Text('刷新房间列表')).mr,
+        const InlineCountShow().mr
       ],
     ).wrap;
   }

@@ -1,6 +1,6 @@
-import 'package:dd_taoke_sdk/model/room_model.dart';
-import 'package:dd_taoke_sdk/model/user.dart';
-import 'package:dd_taoke_sdk/public_api.dart';
+import 'package:dataoke_sdk/model/room_model.dart';
+import 'package:dataoke_sdk/model/user.dart';
+import 'package:dataoke_sdk/public_api.dart';
 import 'package:gesture/box_util.dart';
 import 'package:gesture/service/app_service.dart';
 import 'package:get/get.dart';
@@ -14,10 +14,10 @@ class AppController extends GetxController {
   static AppController get instance => Get.find<AppController>();
 
   //已登录用户
-  Rxn<User> _user = Rxn<User>();
+  final Rxn<User> _user = Rxn<User>();
 
   // 用户jwt token
-  RxnString _token = RxnString();
+  final RxnString _token = RxnString();
 
   // 已创建的游戏房间
   RxList<GameRoomModel> rooms = RxList<GameRoomModel>([]);

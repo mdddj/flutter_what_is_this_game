@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dd_taoke_sdk/model/room_model.dart';
+import 'package:dataoke_sdk/model/room_model.dart';
 import 'package:fbroadcast_nullsafety/fbroadcast_nullsafety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gesture/controller/app_controller.dart';

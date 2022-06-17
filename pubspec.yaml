@@ -11,11 +11,16 @@ dependencies:
   get: ^4.6.5
   cupertino_icons: ^1.0.5
   web_socket_channel: ^2.2.0
-  dd_taoke_sdk: ^1.6.1
   hive: ^2.2.2
   hive_flutter: ^1.1.0
   extended_image: ^6.2.1
   fbroadcast_nullsafety: ^2.0.2
+  flutter_smart_dialog: ^4.5.3+2
+  dd_check_plugin: ^0.0.6
+  dd_js_util: ^0.2.3
+  dataoke_sdk:
+    path: ../../../ldd/plugins/dataoke_sdk
+
 
 
 dev_dependencies:

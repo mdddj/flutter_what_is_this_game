@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:dd_taoke_sdk/model/room_model.dart';
-import 'package:dd_taoke_sdk/public_api.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dataoke_sdk/model/room_model.dart';
+import 'package:dataoke_sdk/public_api.dart';
 import 'package:flutter/material.dart';
 import 'package:gesture/demos/demo2/view.dart';
 import 'package:get/get.dart';

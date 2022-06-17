@@ -1,4 +1,4 @@
-import 'package:dd_taoke_sdk/public_api.dart';
+import 'package:dataoke_sdk/public_api.dart';
 import 'package:flutter/material.dart';
 import 'package:gesture/controller/app_controller.dart';
 import 'package:get/get.dart';
@@ -20,21 +20,26 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('登录'),
+        title: const Text('登录'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TextField(
-              controller: loginNameController,
-              decoration: InputDecoration(hintText: '用户名'),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(hintText: '密码'),
-            ),
-            ElevatedButton(onPressed: submit, child: Text('登录')).mt
-          ],
+        padding: const EdgeInsets.all(12),
+        child: SizedBox(
+          child: Column(
+            children: [
+              TextField(
+                controller: loginNameController,
+                decoration: const InputDecoration(hintText: '用户名'),
+              ),
+              TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(hintText: '密码'),
+                keyboardType: TextInputType.visiblePassword ,
+                obscureText: true,
+              ),
+              ElevatedButton(onPressed: submit, child: const Text('登录')).mt
+            ],
+          ),
         ),
       ),
     );

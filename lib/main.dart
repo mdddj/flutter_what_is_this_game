@@ -1,5 +1,6 @@
-import 'package:dd_taoke_sdk/network/util.dart';
+import 'package:dataoke_sdk/network/util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:gesture/service/app_service.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: Home(),
+      home: const Home(),
+      builder: FlutterSmartDialog.init(),
     );
   }
 }
