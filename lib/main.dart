@@ -7,11 +7,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'controller/app_controller.dart';
 import 'home.dart';
 
+
+const kHost = "https://itbug.shop";
+const kPort = '443';
+
 void main() async{
   await Hive.initFlutter();
   Get.put(AppController());
   Get.put(AppService());
-  DdTaokeUtil.instance.init('http://192.168.199.55', '80');
+  DdTaokeUtil.instance.init(kHost, kPort);
   runApp(MyApp());
 }
 

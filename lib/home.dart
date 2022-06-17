@@ -67,8 +67,8 @@ class _HomeState extends State<Home> {
   Future<void> createRoom(String roomName) async {
     print('用户创建房间:$roomName');
     final newRoom =
-        await PublicApi.req.createRoom(AppController.instance.getUser!.id, roomName, error: (c, m) {
-      showToast(m ?? '创建失败');
+        await PublicApi.req.createRoom(AppController.instance.getUser!.id, roomName, error: (c, m,d) {
+      showToast(m);
     });
     if (newRoom != null) {
       // 插入到房间列表
