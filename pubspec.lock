@@ -77,7 +77,7 @@ packages:
       name: extended_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.1"
+    version: "6.2.1"
   extended_image_library:
     dependency: transitive
     description:

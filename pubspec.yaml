@@ -8,13 +8,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get: any
-  cupertino_icons: ^1.0.3
-  web_socket_channel: ^2.1.0
-  dd_taoke_sdk: ^1.5.1
-  hive: ^2.0.4
-  hive_flutter: any
-  extended_image: ^4.1.0
+  get: ^4.6.5
+  cupertino_icons: ^1.0.5
+  web_socket_channel: ^2.2.0
+  dd_taoke_sdk: ^1.6.1
+  hive: ^2.2.2
+  hive_flutter: ^1.1.0
+  extended_image: ^6.2.1
   fbroadcast_nullsafety: ^2.0.2
 
 
